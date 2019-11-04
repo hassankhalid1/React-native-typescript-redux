@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/khurram/WorkArea/heartbeat_doctor_app_typescript/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "/home/khurram/.gradle/caches/transforms-2/files-2.1/110f353e3ff5bec525f41668239312d3/res/values-port/values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

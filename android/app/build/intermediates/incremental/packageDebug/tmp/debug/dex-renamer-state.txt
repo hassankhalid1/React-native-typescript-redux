@@ -1,0 +1,4 @@
+#Mon Nov 04 15:30:06 PKT 2019
+base.0=/home/khurram/WorkArea/heartbeat_doctor_app_typescript/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
