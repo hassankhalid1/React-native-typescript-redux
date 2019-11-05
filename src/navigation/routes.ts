@@ -1,19 +1,33 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {HomeScreen} from '../containers';
+import {Home, Movie, EditMovie, NewMovie} from '../containers';
 
 enum ROUTES {
-  homeScreen = 'mainScreen',
+  homeScreen = 'HomeScreen',
+  movieScreen = 'MovieScreen',
+  movieUpdateScreen = 'MovieEditScreen',
+  newMovieScreen = 'NewMovieScreen',
 }
 
 const RootStack = createStackNavigator(
   {
+    [ROUTES.movieScreen]: {
+      screen: Movie,
+    },
+    [ROUTES.movieUpdateScreen]: {
+      screen: EditMovie,
+    },
+
+    [ROUTES.newMovieScreen]: {
+      screen: NewMovie,
+    },
     [ROUTES.homeScreen]: {
-      screen: HomeScreen,
+      screen: Home,
     },
   },
   {
     headerMode: 'none',
+    initialRouteName: 'HomeScreen',
     navigationOptions: {
       headerVisible: false,
     },

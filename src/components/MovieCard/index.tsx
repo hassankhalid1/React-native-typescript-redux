@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
-import {Movie} from '../../containers/homeScreen/reducer';
 
 interface MovieCardProps {
   data: any;
   deleteItem: () => void;
+  editItem: () => void;
 }
 
 const MovieCard: React.SFC<MovieCardProps> = props => {
@@ -29,7 +29,11 @@ const MovieCard: React.SFC<MovieCardProps> = props => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.editButton}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => {
+            props.editItem();
+          }}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
         <TouchableOpacity
