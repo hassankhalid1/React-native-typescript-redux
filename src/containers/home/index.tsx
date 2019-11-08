@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './styles';
 import {NavigationType} from '../../rootInterfaces';
-import {ScreenWrapper} from '../../components';
+import {ScreenWrapper, AppButton} from '../../components';
 
 export interface HomeProps {
   navigation: NavigationType['type'];
@@ -24,9 +24,10 @@ class Home extends React.Component<HomeProps, HomeState> {
             <Text style={styles.heading}>Wellcome To Movie TypeScript App</Text>
           </View>
           <View style={styles.buttonConatianer}>
-            <Button
-              color="#40b9ff"
-              title="Browse Latest Movies"
+            <AppButton
+              // color="#40b9ff
+              style={styles.button}
+              text="Browse Latest Movies"
               onPress={() => {
                 this.props.navigation.navigate('MovieScreen');
               }}

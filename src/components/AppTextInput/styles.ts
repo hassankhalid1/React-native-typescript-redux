@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform, Dimensions} from 'react-native';
+const {width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
   appInputField: {
@@ -7,7 +8,9 @@ export default StyleSheet.create({
     borderRadius: 4,
     // paddingVertical: 5,
     overflow: 'visible',
-    width: '100%',
+    // height: height - parseInt('1000'),
+    width: width - 50,
+    height: 50,
     fontSize: 16,
   },
   appInputBorderChange: {

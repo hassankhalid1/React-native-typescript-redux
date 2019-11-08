@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
-import {MovieObj} from './interfaces';
+import {Text, View, Image} from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import {AnyAction, bindActionCreators, Dispatch} from 'redux';
+import {AppButton, AppTextInput, ScreenWrapper} from '../../components';
+import {NavigationType} from '../../rootInterfaces';
 import {AppState} from '../../rootReducer';
 import {newMovie} from './actions';
-import {AnyAction, bindActionCreators, Dispatch} from 'redux';
 import styles from './edit.styles';
-import {AppTextInput, ScreenWrapper, MovieCard} from '../../components';
-import {NavigationType} from '../../rootInterfaces';
-
+import {MovieObj} from './interfaces';
+import DocumentPicker from 'react-native-document-picker';
 export interface NewScreenProps {
   navigation: NavigationType['type'];
 }
@@ -37,6 +39,24 @@ class NewMovie extends React.Component<
       //   movie:typeof <MovieObj>
     };
   }
+  public uploadDocumentHandler = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      this.setState(prevState => ({
+        movie: {
+          ...prevState.movie,
+          poster_path: res.uri,
+        },
+      }));
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+      } else {
+        throw err;
+      }
+    }
+  };
   public submitHandler = () => {
     this.state.movie &&
       this.props.newMovie(this.state.movie, this.props.navigation);
@@ -46,62 +66,100 @@ class NewMovie extends React.Component<
     return (
       <ScreenWrapper>
         <View style={styles.container}>
-          <Text style={styles.headingText}>New Movie</Text>
-          <View style={styles.innerContainer}>
-            <AppTextInput
-              placeholder="Title"
-              style={styles.input}
-              label="Title"
-              getText={(text: string) => {
-                this.setState(prevState => ({
-                  movie: {
-                    ...prevState.movie,
-                    title: text,
+          <KeyboardAwareScrollView
+            scrollEnabled={true}
+            contentContainerStyle={{flex: 1}}
+          >
+            <Text style={styles.headingText}>New Movie</Text>
+            <View style={styles.innerContainer}>
+              <AppTextInput
+                placeholder="Title"
+                style={styles.input}
+                label="Title"
+                getText={(text: string) => {
+                  this.setState(prevState => ({
+                    movie: {
+                      ...prevState.movie,
+                      title: text,
+                    },
+                  }));
+                }}
+                onFocus
+                text={this.state.movie.title}
+              />
+              <AppTextInput
+                placeholder="Rating"
+                style={styles.input}
+                label="Rating"
+                getText={(text: string) => {
+                  this.setState(prevState => ({
+                    movie: {
+                      ...prevState.movie,
+                      vote_average: text,
+                    },
+                  }));
+                }}
+                onFocus
+                text={this.state.movie.vote_average.toString()}
+              />
+              <DatePicker
+                style={{width: '100%', marginVertical: 40}}
+                date={this.state.movie.release_date}
+                mode="date"
+                androidMode="calendar"
+                placeholder="select date"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
                   },
-                }));
-              }}
-              onFocus
-              text={this.state.movie.title}
-            />
-            <AppTextInput
-              placeholder="Rating"
-              style={styles.input}
-              label="Rating"
-              getText={(text: string) => {
-                this.setState(prevState => ({
-                  movie: {
-                    ...prevState.movie,
-                    vote_average: text,
+                  dateInput: {
+                    // marginLeft: 36,
+                    borderRadius: 5,
+                    height: 50,
+                    backgroundColor: '#eee',
                   },
-                }));
-              }}
-              onFocus
-              text={this.state.movie.vote_average.toString()}
-            />
-            <AppTextInput
-              placeholder="Release Date"
-              style={styles.input}
-              label="Release Date"
-              getText={(text: string) => {
-                this.setState(prevState => ({
-                  movie: {
-                    ...prevState.movie,
-                    release_date: text,
-                  },
-                }));
-              }}
-              onFocus
-              text={this.state.movie.release_date}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Submit"
-              onPress={() => {
-                this.submitHandler();
-              }}
-            />
-          </View>
+                }}
+                onDateChange={(date: string) => {
+                  this.setState(prevState => ({
+                    movie: {
+                      ...prevState.movie,
+                      release_date: date,
+                    },
+                  }));
+                }}
+              />
+              <View style={{flex: 1}}>
+                <Image
+                  source={{uri: this.state.movie.poster_path}}
+                  resizeMode="contain"
+                  style={styles.image}
+                />
+              </View>
+              <AppButton
+                text="Select Cover Image"
+                // textStyle={styles.buttonText}
+                style={styles.button}
+                onPress={() => {
+                  this.uploadDocumentHandler();
+                }}
+              />
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <AppButton
+                style={styles.button}
+                text="Submit"
+                onPress={() => {
+                  this.submitHandler();
+                }}
+              />
+            </View>
+          </KeyboardAwareScrollView>
         </View>
       </ScreenWrapper>
     );

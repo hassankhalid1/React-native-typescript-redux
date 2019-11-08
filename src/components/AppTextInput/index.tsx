@@ -45,9 +45,8 @@ class AppTextInput extends React.Component {
     const labelStyle = {
       // position: 'absolute',
       left: 6,
-      // zIndex: 9999,
       width: '100%',
-      top: !isFocused ? 35 : 5,
+      top: isFocused ? 0 : 35,
       fontSize: !isFocused ? 16 : 16,
       color: !isFocused ? 'red' : 'red',
       paddingBottom: !isFocused ? 5 : 5,
@@ -63,17 +62,17 @@ class AppTextInput extends React.Component {
     };
 
     const styleFilled = {
-      paddingTop: 25,
+      paddingTop: 0,
     };
     const styleEmpty = {
-      paddingTop: 25,
+      paddingTop: this.state.text ? 0 : 10,
     };
     return (
       <View
         style={{
-          width: '100%',
-          justifyContent: 'center',
+          // backgroundColor: 'red',
           overflow: 'visible',
+          marginVertical: 10,
         }}>
         <View style={this.state.isFocused ? styleFilled : styleEmpty}>
           {this.state.text ? (
@@ -81,25 +80,25 @@ class AppTextInput extends React.Component {
           ) : (
             <Text style={labelStyle}>{this.props.label}</Text>
           )}
-          <TextInput
-            placeholderTextColor="red"
-            style={[
-              appTextInputStyle.appInputField,
-              this.state.borderColorChange &&
-                appTextInputStyle.appInputBorderChange,
-              this.props.style,
-            ]}
-            multiline={this.props.multiline}
-            onBlur={this.handleBlur}
-            value={this.state.text}
-            placeholder={this.state.isFocused ? '' : this.props.placeholder}
-            onChangeText={text => this.onChangeText(text)}
-            onFocus={() => this.onFocus()}
-            onEndEditing={() => this.onEndEditing()}
-            autoFocus={this.props.autoFocus}
-            selectionColor="#0089d4"
-          />
         </View>
+        <TextInput
+          placeholderTextColor="red"
+          style={[
+            appTextInputStyle.appInputField,
+            this.state.borderColorChange &&
+              appTextInputStyle.appInputBorderChange,
+            this.props.style,
+          ]}
+          multiline={this.props.multiline}
+          onBlur={this.handleBlur}
+          value={this.state.text}
+          placeholder={this.state.isFocused ? '' : this.props.placeholder}
+          onChangeText={text => this.onChangeText(text)}
+          onFocus={() => this.onFocus()}
+          onEndEditing={() => this.onEndEditing()}
+          autoFocus={this.props.autoFocus}
+          selectionColor="#0089d4"
+        />
       </View>
     );
   }

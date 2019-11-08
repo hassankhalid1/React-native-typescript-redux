@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {View, StyleSheet, Text, ScrollView, Button} from 'react-native';
-import {AppState} from '../../rootReducer';
-import {AnyAction, bindActionCreators, Dispatch} from 'redux';
-import {getMovies, deleteMovie} from './actions';
-import {MovieCard, ScreenWrapper} from '../../components';
-import {MovieObj} from './interfaces';
+import {ScrollView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import styles from './styles';
+import {AnyAction, bindActionCreators, Dispatch} from 'redux';
+import {AppButton, MovieCard, ScreenWrapper} from '../../components';
 import {NavigationType} from '../../rootInterfaces';
+import {AppState} from '../../rootReducer';
+import {deleteMovie, getMovies} from './actions';
+import {MovieObj} from './interfaces';
+import styles from './styles';
 
 export interface HomeScreenProps {
   navigation: NavigationType['type'];
@@ -59,8 +59,9 @@ class Movies extends React.Component<
       <ScreenWrapper>
         <View style={styles.container}>
           <Text style={styles.headingText}>Recent Movies</Text>
-          <Button
-            title="Add New"
+          <AppButton
+            text="Add Movie"
+            style={styles.button}
             onPress={() => {
               this.props.navigation.navigate('NewMovieScreen');
             }}

@@ -13,6 +13,7 @@ export default StyleSheet.create({
   },
   buttonConatianer: {
     flex: 3,
+    width: '90%',
     justifyContent: 'flex-start',
   },
   heading: {
@@ -25,5 +26,6 @@ export default StyleSheet.create({
 
   button: {
     borderRadius: 5,
+    borderWidth: 0,
   },
 });

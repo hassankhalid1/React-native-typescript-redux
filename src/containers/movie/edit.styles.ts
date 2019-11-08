@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const {width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     backgroundColor: '#002233',
-
     alignItems: 'center',
   },
   headingText: {
@@ -17,21 +17,36 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   innerContainer: {
-    flex: 3,
-    width: '95%',
+    flex: 5,
+    justifyContent: 'center',
+    width: '100%',
     alignItems: 'center',
   },
   buttonContainer: {
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
-    borderWidth: 0.56,
-    alignContent: 'center',
+    // borderWidth: 0.56,
     paddingHorizontal: 20,
     color: 'black',
+    width: width - 50,
     backgroundColor: '#eee',
-    borderRadius: 10,
+    borderRadius: 5,
+  },
+  button: {
+    backgroundColor: '#229df0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: '100%',
+    borderWidth: 0,
+    borderRadius: 5,
+  },
+  image: {
+    width: 200,
+    height: 130,
   },
 });

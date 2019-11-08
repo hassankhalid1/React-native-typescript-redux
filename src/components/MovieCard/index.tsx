@@ -9,12 +9,18 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.SFC<MovieCardProps> = props => {
+  console.log(props.data.poster_path);
   const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
+  const path = props.data.poster_path.length < 35;
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={{uri: `${POSTER_PATH}${props.data.poster_path}`}}
+          source={
+            path
+              ? {uri: `${POSTER_PATH}${props.data.poster_path}`}
+              : {uri: props.data.poster_path}
+          }
           style={styles.image}
           resizeMode="contain"
         />

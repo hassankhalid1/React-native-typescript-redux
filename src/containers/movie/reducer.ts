@@ -59,7 +59,7 @@ export default function(
       action.navigation.navigate('MovieScreen');
       return {
         ...state,
-        movies: [...state.movies, action.data],
+        movies: [action.data, ...state.movies],
         movieLoaded: true,
       };
     default:
